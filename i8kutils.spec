@@ -3,12 +3,14 @@ Summary:	User-space programs for Dell Inspiron and Latitude laptops
 Summary(pl):	Programy przestrzeni u¿ytkownika dla laptopów Dell Inspiron i Latitude
 Name:		i8kutils
 Version:	1.25
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		Applications/System
 Source0:	http://people.debian.org/~dz/i8k/%{name}_%{version}.tar.gz
+Source1:	i8kutils.init
+Source2:	i8kbuttons.aumix
+Source3:	i8kbuttons.conf
 # Source0-md5:	50c03dde689c5709406118a7c6c120db
-Source1:	i8kutils
 URL:		http://people.debian.org/~dz/i8k/
 Requires:	aumix
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -34,17 +36,18 @@ ch³odz±cych i przycisków g³o¶no¶ci.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/usr/bin
-install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
+install -d $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
 
 install i8kmon.conf $RPM_BUILD_ROOT%{_sysconfdir}
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/%{name}
+install %{SOURCE2} $RPM_BUILD_ROOT%{_bindir}
+install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}
 install i8kbuttons.1 i8kctl.1 i8kmon.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	BINDIR=%{_bindir}
+	DESTDIR=$RPM_BUILD_ROOT 
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -59,7 +62,8 @@ echo
 %files
 %defattr(644,root,root,755)
 %doc COPYING README.i8kutils ./examples
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*.conf
+%attr(755,root,root) %{_sysconfdir}/rc.d/init.d/i8kutils
 %attr(755,root,root) %{_bindir}/*
 %{_mandir}/man*/*
 #%attr(754,root,root) /etc/rc.d/init.d/i8kutils
