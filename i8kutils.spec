@@ -8,13 +8,13 @@ License:	GPL
 Group:		Applications/System
 Source0:	http://people.debian.org/~dz/i8k/%{name}_%{version}.tar.gz
 # Source0-md5:	50c03dde689c5709406118a7c6c120db
-Source1:	i8kutils.init
+Source1:	%{name}.init
 Source2:	i8kbuttons.aumix
 Source3:	i8kbuttons.conf
 URL:		http://people.debian.org/~dz/i8k/
 Requires:	aumix
-Requires:       tcl 
-Requires:       tk 
+Requires:	tcl 
+Requires:	tk 
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
