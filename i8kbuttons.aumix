@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 if [ -f /etc/i8kbuttons.conf ]; then
         . /etc/i8kbuttons.conf
 else
@@ -8,5 +8,6 @@ fi
 exec /usr/bin/i8kbuttons -u "$I8KBUTTONS_UP_CMD" -d "$I8KBUTTONS_DOWN_CMD" \
 	-m "$I8KBUTTONS_MUTE_CMD" -r "$I8KBUTTONS_TIMEOUT" &
 		
-
-/sbin/kbdrate -r 30 -d 100 >/dev/null 2>&1 & echo
+if [ -x /usr/bin/kbdrate ]; then
+	/usr/bin/kbdrate -r 30 -d 100 >/dev/null 2>&1 & echo
+fi
