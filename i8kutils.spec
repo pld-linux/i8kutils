@@ -14,6 +14,7 @@ URL:		http://people.debian.org/~dz/i8k/
 Requires:	aumix
 Requires:	tcl 
 Requires:	tk 
+ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
