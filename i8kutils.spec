@@ -13,6 +13,8 @@ Source2:	i8kbuttons.aumix
 Source3:	i8kbuttons.conf
 URL:		http://people.debian.org/~dz/i8k/
 Requires:	aumix
+Requires:       tcl 
+Requires:       tk 
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
