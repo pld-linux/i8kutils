@@ -1,0 +1,70 @@
+#!/bin/sh
+#
+#
+# chkconfig:	2345 80 30
+# description:	i8kutils is userspace for i8k kernel module
+# processname:	i8kbuttons
+# config:	/etc/i8kbuttons.conf
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source i8kutils configureation.
+if [ -f /etc/sysconfig/i8kutils ]; then
+	. /etc/sysconfig/i8kutils
+fi
+
+if [ -f /etc/i8kbuttons.conf ]; then
+	. /etc/i8kbuttons.conf
+else
+	print "there's no /etc/i8kbuttons.conf"
+fi
+
+# See how we were called.
+case "$1" in
+  start)
+	# Start daemons.
+	if [ ! -f /var/lock/subsys/i8kutils ]; then
+		msg_starting i8kutils
+		daemon /usr/bin/i8kbuttons.aumix
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/i8kutils
+	else
+		msg_already_running i8kutils
+	fi
+	;;
+  stop)
+	# Stop daemons.
+	if [ -f /var/lock/subsys/i8kutils ]; then
+		msg_stopping i8kutils
+		killproc i8kbuttons
+		rm -f /var/lock/subsys/i8kutils >/dev/null 2>&1
+	else
+		msg_not_running i8kutils
+	fi	
+	;;
+  restart)
+	$0 stop
+	$0 start
+	exit $?
+	;;
+  status)
+	status i8kbuttons
+	exit $?
+	;;
+  reload|force-reload)
+	if [ -f /var/lock/subsys/i8kutils ]; then
+		msg_reloading i8kutils
+		killproc i8kbuttns.aumix
+		RETVAL=$?
+	else
+		msg_not_running Exim >&2
+		exit 7
+	fi
+	;;
+  *)
+	msg_usage "$0 {start|stop|restart|reload|force-reload|status}"
+	exit 3
+esac
+
+exit $RETVAL
