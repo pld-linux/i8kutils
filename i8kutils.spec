@@ -2,7 +2,7 @@ Summary:	User-space programs for Dell Inspiron and Latitude laptops
 Summary(pl):	Programy przestrzeni u¿ytkownika dla laptopów Dell Inspiron i Latitude
 Name:		i8kutils
 Version:	1.25
-Release:	0.4
+Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://people.debian.org/~dz/i8k/%{name}_%{version}.tar.gz
