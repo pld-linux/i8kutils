@@ -34,6 +34,7 @@ ch³odz±cych i przycisków g³o¶no¶ci.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT/usr/bin
 install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
 
@@ -42,7 +43,8 @@ install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d
 install i8kbuttons.1 i8kctl.1 i8kmon.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	BINDIR=%{_bindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
