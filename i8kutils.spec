@@ -1,4 +1,3 @@
-# TODO: optflags, check COPYING==GPL?
 Summary:	User-space programs for Dell Inspiron and Latitude laptops
 Summary(pl):	Programy przestrzeni u¿ytkownika dla laptopów Dell Inspiron i Latitude
 Name:		i8kutils
@@ -34,7 +33,9 @@ ch³odz±cych i przycisków g³o¶no¶ci.
 %setup -q
 
 %build
-%{__make}
+%{__make} \
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags} -Wall"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -63,7 +64,7 @@ echo
 
 %files
 %defattr(644,root,root,755)
-%doc COPYING README.i8kutils ./examples
+%doc README.i8kutils examples
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*.conf
 %attr(754,root,root) /etc/rc.d/init.d/i8kutils
 %attr(755,root,root) %{_bindir}/*
