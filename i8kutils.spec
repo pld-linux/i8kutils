@@ -51,7 +51,7 @@ install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}
 install i8kbuttons.1 i8kctl.1 i8kmon.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT 
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -66,7 +66,7 @@ echo
 %files
 %defattr(644,root,root,755)
 %doc README.i8kutils examples
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.conf
 %attr(754,root,root) /etc/rc.d/init.d/i8kutils
 %attr(755,root,root) %{_bindir}/*
 %{_mandir}/man*/*
