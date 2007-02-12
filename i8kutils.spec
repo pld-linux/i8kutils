@@ -1,5 +1,5 @@
 Summary:	User-space programs for Dell Inspiron and Latitude laptops
-Summary(pl):	Programy przestrzeni u縴tkownika dla laptop體 Dell Inspiron i Latitude
+Summary(pl.UTF-8):   Programy przestrzeni u偶ytkownika dla laptop贸w Dell Inspiron i Latitude
 Name:		i8kutils
 Version:	1.25
 Release:	1
@@ -23,12 +23,12 @@ of Dell Inspiron and Latitude laptops. The SMM BIOS is used on many
 recent laptops to implement APM functionalities and to access custom
 hardware, for example the cooling fans and volume buttons.
 
-%description -l pl
-Ten pakiet zawiera programy dzia砤j眂e w przestrzeni u縴tkownika
-s硊勘ce do dost阷u do SMM BIOS-u laptop體 Dell Inspiron i Latitude.
-SMM BIOS w nowych laptopach s硊縴 do implementowania funkcjonalno禼i
-APM i dost阷u do specyficznego sprz阾u, na przyk砤d wiatraczk體
-ch硂dz眂ych i przycisk體 g硂秐o禼i.
+%description -l pl.UTF-8
+Ten pakiet zawiera programy dzia艂aj膮ce w przestrzeni u偶ytkownika
+s艂u偶膮ce do dost臋pu do SMM BIOS-u laptop贸w Dell Inspiron i Latitude.
+SMM BIOS w nowych laptopach s艂u偶y do implementowania funkcjonalno艣ci
+APM i dost臋pu do specyficznego sprz臋tu, na przyk艂ad wiatraczk贸w
+ch艂odz膮cych i przycisk贸w g艂o艣no艣ci.
 
 %prep
 %setup -q
