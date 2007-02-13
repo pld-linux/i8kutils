@@ -1,5 +1,5 @@
 Summary:	User-space programs for Dell Inspiron and Latitude laptops
-Summary(pl.UTF-8):   Programy przestrzeni użytkownika dla laptopów Dell Inspiron i Latitude
+Summary(pl.UTF-8):	Programy przestrzeni użytkownika dla laptopów Dell Inspiron i Latitude
 Name:		i8kutils
 Version:	1.25
 Release:	1
