@@ -42,7 +42,7 @@ chłodzących i przycisków głośności.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir}}
+install -d $RPM_BUILD_ROOT%{_bindir}
 install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
 
@@ -53,7 +53,7 @@ cp -p %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}
 cp -p i8kctl.1 i8kmon.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 cp -p i8kctl i8kfan i8kmon probe_i8k_calls_time \
-	$RPM_BUILD_ROOT%{_sbindir}
+	$RPM_BUILD_ROOT%{_bindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -72,10 +72,10 @@ echo
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/i8kmon.conf
 %attr(754,root,root) /etc/rc.d/init.d/i8kutils
 %attr(755,root,root) %{_bindir}/i8kbuttons.aumix
-%attr(755,root,root) %{_sbindir}/i8kctl
-%attr(755,root,root) %{_sbindir}/i8kfan
-%attr(755,root,root) %{_sbindir}/i8kmon
-%attr(755,root,root) %{_sbindir}/probe_i8k_calls_time
+%attr(755,root,root) %{_bindir}/i8kctl
+%attr(755,root,root) %{_bindir}/i8kfan
+%attr(755,root,root) %{_bindir}/i8kmon
+%attr(755,root,root) %{_bindir}/probe_i8k_calls_time
 %{_mandir}/man1/i8kctl.1*
 %{_mandir}/man1/i8kmon.1*
 
