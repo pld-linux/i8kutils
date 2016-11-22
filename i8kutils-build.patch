@@ -1,0 +1,11 @@
+--- a/probe_i8k_calls_time.c~	2014-12-03 23:58:02.000000000 +0100
++++ b/probe_i8k_calls_time.c	2016-11-22 19:54:03.570717551 +0100
+@@ -13,7 +13,7 @@
+ 
+ struct timespec tmst;
+ 
+-inline double timestamp()
++double timestamp()
+ {
+ 	clock_gettime(CLOCK_REALTIME, &tmst);
+ 	t = tmst.tv_nsec;

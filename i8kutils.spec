@@ -1,20 +1,21 @@
 Summary:	User-space programs for Dell Inspiron and Latitude laptops
 Summary(pl.UTF-8):	Programy przestrzeni użytkownika dla laptopów Dell Inspiron i Latitude
 Name:		i8kutils
-Version:	1.25
+Version:	1.42
 Release:	1
 License:	GPL
 Group:		Applications/System
-Source0:	http://people.debian.org/~dz/i8k/%{name}_%{version}.tar.gz
-# Source0-md5:	50c03dde689c5709406118a7c6c120db
+Source0:	https://launchpad.net/i8kutils/trunk/%{version}/+download/%{name}_%{version}.tar.xz
+# Source0-md5:	7470b2908b39a41e3f26b8b3398e189d
+Patch0:		%{name}-build.patch
 Source1:	%{name}.init
 Source2:	i8kbuttons.aumix
 Source3:	i8kbuttons.conf
-URL:		http://people.debian.org/~dz/i8k/
+URL:		https://launchpad.net/i8kutils
 Requires:	aumix
-Requires:	tcl 
-Requires:	tk 
-ExclusiveArch:	%{ix86}
+Requires:	tcl
+Requires:	tk
+ExclusiveArch:	%{ix86} %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -31,27 +32,28 @@ APM i dostępu do specyficznego sprzętu, na przykład wiatraczków
 chłodzących i przycisków głośności.
 
 %prep
-%setup -q
+%setup -q -n %{name}
+%patch0 -p1
 
 %build
 %{__make} \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} -Wall"
+	CFLAGS="%{rpmcppflags} %{rpmcflags} -Wall"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir}}
 install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
 
-install i8kmon.conf $RPM_BUILD_ROOT%{_sysconfdir}
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
-install %{SOURCE2} $RPM_BUILD_ROOT%{_bindir}
-install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}
-install i8kbuttons.1 i8kctl.1 i8kmon.1 $RPM_BUILD_ROOT%{_mandir}/man1
+cp -p i8kmon.conf $RPM_BUILD_ROOT%{_sysconfdir}
+cp -p %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
+cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_bindir}
+cp -p %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}
+cp -p i8kctl.1 i8kmon.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+cp -p i8kctl i8kfan i8kmon probe_i8k_calls_time \
+	$RPM_BUILD_ROOT%{_sbindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -65,8 +67,15 @@ echo
 
 %files
 %defattr(644,root,root,755)
-%doc README.i8kutils examples
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.conf
+%doc README.i8kutils TODO
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/i8kbuttons.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/i8kmon.conf
 %attr(754,root,root) /etc/rc.d/init.d/i8kutils
-%attr(755,root,root) %{_bindir}/*
-%{_mandir}/man*/*
+%attr(755,root,root) %{_bindir}/i8kbuttons.aumix
+%attr(755,root,root) %{_sbindir}/i8kctl
+%attr(755,root,root) %{_sbindir}/i8kfan
+%attr(755,root,root) %{_sbindir}/i8kmon
+%attr(755,root,root) %{_sbindir}/probe_i8k_calls_time
+%{_mandir}/man1/i8kctl.1*
+%{_mandir}/man1/i8kmon.1*
+
